@@ -1,0 +1,466 @@
+LAB SHEET 1
+Introduction to CI/CD Tools and Git Integration
+Step 1: Clone Repository
+Bash
+git clone <repository_url>
+Step 2: Create Java Class
+Java
+package com.example;
+
+public class HelloWorld {
+
+    public static void main(String[] args) {
+
+        System.out.println("Hello CI/CD");
+    }
+}
+Step 3: Add Files
+Bash
+git add .
+Step 4: Commit Changes
+Bash
+git commit -m "Initial commit of Simple Java project"
+Step 5: Push Changes
+Bash
+git push origin main
+LAB SHEET 2
+Collaborative Git Workflow
+Step 1: Clone Repository
+Bash
+git clone <repo_url>
+Step 2: Open Folder
+Bash
+cd projectname
+Step 3: Java Code
+Java
+package msg.project;
+
+public class add {
+
+    public static void main(String[] args) {
+
+        int a = 10;
+        int b = 20;
+        int c = 30;
+
+        int d = a + b + c;
+
+        System.out.println(d);
+    }
+}
+Step 4: Check Status
+Bash
+git status
+Step 5: Add Changes
+Bash
+git add .
+Step 6: Commit Changes
+Bash
+git commit -m "Updated Java code by collaborator"
+Step 7: Push Changes
+Bash
+git push origin main
+LAB SHEET 3
+GitHub Branching and Merge Conflict
+Step 1: Clone Repository
+Bash
+git clone <repo_url>
+Step 2: Create Branch
+Bash
+git checkout -b nextgen
+Step 3: Create Java File
+Java
+public class HelloWorld {
+
+    public static void main(String[] args) {
+
+        System.out.println("Main Branch Code");
+    }
+}
+Step 4: Commit Main Branch
+Bash
+git add .
+git commit -m "main branch code"
+git push origin main
+Step 5: Modify Java Code in Branch
+Java
+public class HelloWorld {
+
+    public static void main(String[] args) {
+
+        System.out.println("NextGen Branch Code");
+    }
+}
+Step 6: Commit Branch Changes
+Bash
+git add .
+git commit -m "changes in branch"
+git push origin nextgen
+Step 7: Switch Main Branch
+Bash
+git checkout main
+Step 8: Change Same Java File in Main
+Java
+public class HelloWorld {
+
+    public static void main(String[] args) {
+
+        System.out.println("Updated Main Branch");
+    }
+}
+Step 9: Commit Main Changes
+Bash
+git add .
+git commit -m "main updated"
+git push origin main
+Step 10: Switch Branch Again
+Bash
+git checkout nextgen
+Step 11: Merge Main
+Bash
+git merge origin/main
+Step 12: Conflict Occurs
+Java
+<<<<<<< HEAD
+System.out.println("NextGen Branch Code");
+=======
+System.out.println("Updated Main Branch");
+>>>>>>> main
+Step 13: Resolve Conflict
+Java
+public class HelloWorld {
+
+    public static void main(String[] args) {
+
+        System.out.println("Conflict Resolved");
+    }
+}
+Step 14: Add Resolved File
+Bash
+git add HelloWorld.java
+Step 15: Commit Resolved Code
+Bash
+git commit -m "resolve conflict"
+Step 16: Push Branch
+Bash
+git push origin nextgen
+LAB SHEET 5
+Jenkins Freestyle Java Maven Project
+Step 1: Open Jenkins
+Plain text
+http://localhost:8080
+Step 2: Create Freestyle Project
+Plain text
+New Item → Freestyle Project
+Step 3: Configure Git
+Plain text
+https://github.com/peachikawalla/5-ui/web-mini-project.git
+Step 4: Branch
+Plain text
+*/main
+Step 5: Maven Goals
+Bash
+clean install package
+Step 6: Build Project
+Plain text
+Build Now
+Step 7: Run JAR
+Bash
+java -jar calculator-0.0.1-SNAPSHOT.jar
+LAB SHEET 6
+GitHub Actions
+Step 1: Create Folder
+Plain text
+.github/workflows
+Step 2: Create YAML File
+Plain text
+java-ci.yml
+Step 3: YAML Code
+YAML
+name: Java CI
+
+on:
+  push:
+    branches: [ main ]
+
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build and Run Java
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v3
+
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Compile Java
+        run: javac *.java
+
+      - name: Run Java program
+        run: java Add
+Step 4: Java Code
+Java
+public class Add {
+
+    public static void main(String[] args) {
+
+        int a = 10;
+        int b = 20;
+
+        System.out.println(a + b);
+    }
+}
+Step 5: Push Code
+Bash
+git add .
+git commit -m "Added workflow"
+git push origin main
+LAB SHEET 8
+JUnit Testing
+Step 1: Add Dependency
+XML
+<dependency>
+ <groupId>org.junit.jupiter</groupId>
+ <artifactId>junit-jupiter</artifactId>
+ <version>5.10.2</version>
+ <scope>test</scope>
+</dependency>
+Step 2: Add Plugin
+XML
+<plugin>
+ <groupId>org.apache.maven.plugins</groupId>
+ <artifactId>maven-surefire-plugin</artifactId>
+ <version>3.2.5</version>
+</plugin>
+Step 3: Main Java Class
+Java
+package operations_add_sub;
+
+public class AddTwoNumber {
+
+    public int add(int a, int b) {
+
+        return a + b;
+    }
+
+    public int subtract(int b, int c) {
+
+        return b - c;
+    }
+
+    public static void main(String[] args) {
+
+        AddTwoNumber calc = new AddTwoNumber();
+
+        int result1 = calc.add(2, 3);
+
+        int result2 = calc.subtract(2, 3);
+
+        System.out.println("Result: " + result1);
+
+        System.out.println("Result: " + result2);
+    }
+}
+Step 4: JUnit Test Class
+Java
+package operations_add_sub;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+public class AddTwoNumberTest {
+
+    @Test
+    void testAdd() {
+
+        AddTwoNumber calc = new AddTwoNumber();
+
+        int result = calc.add(2, 3);
+
+        assertEquals(5, result, "Addition should return 5");
+    }
+
+    @Test
+    void testSubtract() {
+
+        AddTwoNumber calc = new AddTwoNumber();
+
+        int result = calc.subtract(2, 3);
+
+        assertEquals(-1, result, "Subtraction should return -1");
+    }
+}
+Step 5: Run Test
+Plain text
+Run As → Maven Test
+LAB SHEET 9
+Automated Unit Testing in Jenkins
+Step 1: Push Code
+Bash
+git init
+git add .
+git commit -m "Initial commit"
+git push -u origin main
+Step 2: Configure Maven Goal
+Bash
+clean install
+Step 3: Build Project
+Plain text
+Build Now
+LAB SHEET 10
+Jenkins Pipeline Groovy Script
+Step 1: Create Pipeline Project
+Plain text
+New Item → Pipeline Project
+Step 2: Add Groovy Script
+Groovy
+pipeline {
+
+ agent any
+
+ stages {
+
+  stage('Trigger Freestyle Project') {
+
+   steps {
+
+    echo "Triggering Java-Freestyle-Project..."
+
+    script {
+
+     def buildInfo = build job: 'Junit Testing Project', wait: true
+
+     echo "Freestyle Build Number: ${buildInfo.number}"
+
+     echo "Freestyle Build Status: ${buildInfo.result}"
+
+     if (buildInfo.result != 'SUCCESS') {
+
+      error "Freestyle project failed!"
+     }
+    }
+   }
+  }
+
+  stage('Result') {
+
+   steps {
+
+    echo "Git Fetch + Build + Test executed successfully!"
+
+    echo "Check Java-Freestyle-Project for JUnit results."
+   }
+  }
+ }
+}
+Step 3: Build Project
+Plain text
+Build Now
+LAB SHEET 12
+Jenkins with Docker
+Step 1: Check Docker
+Bash
+docker --version
+docker ps
+Step 2: Dockerfile
+Dockerfile
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+
+WORKDIR /app
+
+COPY . .
+
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:17
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
+Step 3: Docker Build
+Bash
+docker build -t add-two-number-app .
+Step 4: Run Container
+Bash
+docker run -d --name addtwo-container -p 9090:8080 add-two-number-app
+Step 5: Jenkins Docker Pipeline
+Groovy
+pipeline {
+
+ agent any
+
+ tools {
+
+  maven "Maven3"
+ }
+
+ environment {
+
+  IMAGE_NAME = "add-two-number-app"
+ }
+
+ stages {
+
+  stage('Checkout Code') {
+
+   steps {
+
+    git branch: 'main',
+    url: 'https://github.com/prachikawalkar5-ui/web-mini-project.git'
+   }
+  }
+
+  stage('Build Maven Project') {
+
+   steps {
+
+    dir('calculator') {
+
+     bat 'mvn clean package -DskipTests'
+    }
+   }
+  }
+
+  stage('Check Docker') {
+
+   steps {
+
+    bat 'docker --version'
+   }
+  }
+
+  stage('Build Docker Image') {
+
+   steps {
+
+    dir('calculator') {
+
+     bat 'docker build --no-cache -t add-two-number-app .'
+    }
+   }
+  }
+
+  stage('Run Container') {
+
+   steps {
+
+    bat 'docker rm -f addtwo-container || exit 0'
+
+    bat 'docker run -d --name addtwo-container -p 9090:8080 add-two-number-app'
+   }
+  }
+ }
+}
