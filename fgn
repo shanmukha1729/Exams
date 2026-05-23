@@ -1,0 +1,1008 @@
+Complete DevSecOps / CI-CD Lab Sheets (1–12)
+
+LAB SHEET 1
+
+Introduction to CI/CD Tools and Git Integration
+
+Aim
+
+To introduce CI/CD tools and demonstrate Git integration using a simple Java project.
+
+Software Required
+
+Java JDK 8+
+
+Git
+
+GitHub/GitLab account
+
+Eclipse / IntelliJ / VS Code
+
+
+
+---
+
+Step 1: Create Remote Repository
+
+1. Open GitHub.
+
+
+2. Click New Repository.
+
+
+3. Repository Name:
+
+SimpleJavaCICD
+
+
+4. Create Repository.
+
+
+5. Copy repository URL.
+
+
+
+
+---
+
+Step 2: Clone Repository
+
+Open Git Bash:
+
+git clone <repository_url>
+
+Example:
+
+git clone https://github.com/user/SimpleJavaCICD.git
+
+
+---
+
+Step 3: Create Maven Java Project
+
+1. Open Eclipse.
+
+
+2. File → New → Maven Project.
+
+
+3. Select archetype.
+
+
+4. Enter:
+
+
+
+Group ID: com.example
+Artifact ID: SimpleJavaCICD
+
+5. Finish.
+
+
+
+
+---
+
+Step 4: Create Java Class
+
+package com.example;
+
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello CI/CD");
+    }
+}
+
+
+---
+
+Step 5: Add Files to Git
+
+git add .
+
+
+---
+
+Step 6: Commit Changes
+
+git commit -m "Initial commit of Simple Java project"
+
+
+---
+
+Step 7: Push to GitHub
+
+git push origin main
+
+
+---
+
+LAB SHEET 2
+
+Collaborative Git Workflow
+
+Aim
+
+Access and modify another user’s Git repository collaboratively.
+
+
+---
+
+Step 1: Add Collaborator
+
+1. Open GitHub repository.
+
+
+2. Settings → Collaborators.
+
+
+3. Add collaborator email.
+
+
+4. Accept invitation.
+
+
+
+
+---
+
+Step 2: Clone Repository
+
+git clone <repo_url>
+
+
+---
+
+Step 3: Open Project
+
+cd projectname
+
+
+---
+
+Step 4: Modify Java File
+
+package msg.project;
+
+public class add {
+    public static void main(String[] args) {
+        int a=10,b=20,c=30;
+        d=a+b+c;
+        System.out.println(d);
+    }
+}
+
+
+---
+
+Step 5: Check Repository Status
+
+git status
+
+
+---
+
+Step 6: Add Files
+
+git add .
+
+
+---
+
+Step 7: Commit Changes
+
+git commit -m "Updated Java code by collaborator"
+
+
+---
+
+Step 8: Push Changes
+
+git push origin main
+
+
+---
+
+LAB SHEET 3
+
+GitHub Branching and Merge Conflict
+
+
+---
+
+Part A
+
+Step 1: Create Repository
+
+Create repository in GitHub.
+
+
+---
+
+Step 2: Push Java Code
+
+git add .
+git commit -m "Initial code"
+git push origin main
+
+
+---
+
+Step 3: Create Branch
+
+git checkout -b nextgen
+
+
+---
+
+Step 4: Modify Java File
+
+vim HelloWorld.java
+
+Add changes.
+
+
+---
+
+Step 5: Commit Branch Changes
+
+git add HelloWorld.java
+git commit -m "changes in branch"
+
+
+---
+
+Step 6: Merge Main Branch
+
+git merge origin/main
+
+
+---
+
+Step 7: Check Difference
+
+git diff HEAD HelloWorld.java
+
+
+---
+
+Step 8: Resolve Conflict
+
+vim HelloWorld.java
+
+Remove conflict manually.
+
+Save:
+
+ESC :wq
+
+
+---
+
+Step 9: Add and Commit
+
+git add HelloWorld.java
+git commit -m "resolve conflict"
+
+
+---
+
+Step 10: Push Branch
+
+git push origin nextgen
+
+
+---
+
+Step 11: Switch to Main
+
+git checkout main
+
+
+---
+
+Step 12: Merge Branch
+
+git merge origin/nextgen
+
+
+---
+
+Step 13: Push Main
+
+git push origin main
+
+
+---
+
+LAB SHEET 4
+
+(Not uploaded)
+
+
+---
+
+LAB SHEET 5
+
+Jenkins Freestyle Java Maven Project
+
+
+---
+
+Step 1: Open Jenkins
+
+Open:
+
+http://localhost:8080
+
+
+---
+
+Step 2: Create New Item
+
+1. New Item
+
+
+2. Project Name
+
+
+3. Freestyle Project
+
+
+
+
+---
+
+Step 3: Source Code Management
+
+Enable Git.
+
+Repository URL:
+
+https://github.com/peachikawalla/5-ui/web-mini-project.git
+
+Branch:
+
+*/main
+
+
+---
+
+Step 4: Build Steps
+
+Add:
+
+Invoke top-level Maven targets
+
+Goals:
+
+clean install package
+
+
+---
+
+Step 5: Build Project
+
+Click:
+
+Build Now
+
+
+---
+
+Step 6: Run JAR
+
+java -jar calculator-0.0.1-SNAPSHOT.jar
+
+
+---
+
+LAB SHEET 6
+
+GitHub Actions CI Pipeline
+
+
+---
+
+Step 1: Create Repository
+
+Create GitHub repository.
+
+
+---
+
+Step 2: Create Workflow Folder
+
+Create:
+
+.github/workflows
+
+
+---
+
+Step 3: Create YAML File
+
+File:
+
+java-ci.yml
+
+
+---
+
+Step 4: Add YAML Code
+
+name: Java CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build and Run Java
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Compile Java
+        run: javac *.java
+
+      - name: Run Java program
+        run: java Add
+
+
+---
+
+Step 5: Add Java File
+
+public class Add {
+    public static void main(String[] args) {
+        int a=10,b=20;
+        System.out.println(a+b);
+    }
+}
+
+
+---
+
+Step 6: Push to GitHub
+
+git add .
+git commit -m "Added workflow"
+git push origin main
+
+
+---
+
+LAB SHEET 7
+
+SonarQube Static Code Analysis
+
+
+---
+
+Step 1: Install SonarQube
+
+Download and unzip SonarQube.
+
+
+---
+
+Step 2: Start SonarQube
+
+Open:
+
+bin/windows-x86-64
+
+Run:
+
+StartSonar.bat
+
+
+---
+
+Step 3: Open Browser
+
+http://localhost:9000
+
+Username:
+
+admin
+
+Password:
+
+admin
+
+
+---
+
+Step 4: Run Maven Sonar Command
+
+mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+-Dsonar.projectKey=project1 \
+-Dsonar.projectName='project1' \
+-Dsonar.host.url=http://localhost:9000 \
+-Dsonar.token=xxxxx
+
+
+---
+
+LAB SHEET 8
+
+JUnit Testing in Eclipse
+
+
+---
+
+Step 1: Create Maven Project
+
+File → New → Maven Project.
+
+
+---
+
+Step 2: Add Dependency in pom.xml
+
+<dependencies>
+ <dependency>
+ <groupId>org.junit.jupiter</groupId>
+ <artifactId>junit-jupiter</artifactId>
+ <version>5.10.2</version>
+ <scope>test</scope>
+ </dependency>
+</dependencies>
+
+
+---
+
+Step 3: Add Plugin
+
+<build>
+ <plugins>
+ <plugin>
+ <groupId>org.apache.maven.plugins</groupId>
+ <artifactId>maven-surefire-plugin</artifactId>
+ <version>3.2.5</version>
+ </plugin>
+ </plugins>
+</build>
+
+
+---
+
+Step 4: Main Java Class
+
+package operations_add_sub;
+
+public class AddTwoNumber {
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    public int subtract(int b, int c) {
+        return b - c;
+    }
+}
+
+
+---
+
+Step 5: Test Class
+
+package operations_add_sub;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+public class AddTwoNumberTest {
+
+ @Test
+ void testAdd() {
+     AddTwoNumber calc = new AddTwoNumber();
+     int result = calc.add(2,3);
+     assertEquals(5,result,"Addition should return 5");
+ }
+
+ @Test
+ void testSubtract() {
+     AddTwoNumber calc = new AddTwoNumber();
+     int result = calc.subtract(2,3);
+     assertEquals(-1,result,"Subtraction should return -1");
+ }
+}
+
+
+---
+
+Step 6: Run Test
+
+Right Click Project → Run As → Maven Test
+
+
+---
+
+LAB SHEET 9
+
+Automated Unit Testing in Jenkins
+
+
+---
+
+Step 1: Install Plugins
+
+Install:
+
+Maven Integration Plugin
+
+JUnit Plugin
+
+Git Plugin
+
+
+
+---
+
+Step 2: Push Project to GitHub
+
+git init
+git add .
+git commit -m "Initial commit"
+git push -u origin main
+
+
+---
+
+Step 3: Configure Tools
+
+Manage Jenkins → Global Tool Configuration.
+
+Add:
+
+JDK
+
+Maven
+
+
+
+---
+
+Step 4: Create Freestyle Project
+
+Select:
+
+Freestyle Project
+
+
+---
+
+Step 5: Configure Git Repository
+
+Repository URL:
+
+https://github.com/prachikawalkar5-ui/Junit-Testing.git
+
+
+---
+
+Step 6: Maven Goals
+
+clean install
+
+
+---
+
+Step 7: Build Project
+
+Click Build Now.
+
+
+---
+
+LAB SHEET 10
+
+Jenkins Pipeline Groovy with JUnit
+
+
+---
+
+Step 1: Create Pipeline Project
+
+Select:
+
+Pipeline Project
+
+
+---
+
+Step 2: Add Groovy Script
+
+pipeline {
+ agent any
+ stages {
+  stage('Trigger Freestyle Project') {
+   steps {
+    echo "Triggering Java-Freestyle-Project..."
+    script {
+     def buildInfo = build job: 'Junit Testing Project', wait: true
+     echo "Freestyle Build Number: ${buildInfo.number}"
+     echo "Freestyle Build Status: ${buildInfo.result}"
+
+     if (buildInfo.result != 'SUCCESS') {
+      error "Freestyle project failed!"
+     }
+    }
+   }
+  }
+
+  stage('Result') {
+   steps {
+    echo "Git Fetch + Build + Test executed successfully!"
+    echo "Check Java-Freestyle-Project for JUnit results."
+   }
+  }
+ }
+}
+
+
+---
+
+Step 3: Build Pipeline
+
+Click:
+
+Build Now
+
+
+---
+
+LAB SHEET 11
+
+SonarQube in Jenkins Pipeline
+
+
+---
+
+Step 1: Install Plugin
+
+Install:
+
+SonarQube Scanner Plugin
+
+
+---
+
+Step 2: Configure SonarQube Scanner
+
+Manage Jenkins → Tools.
+
+Add:
+
+SonarScanner
+
+
+---
+
+Step 3: Generate Token
+
+Open SonarQube:
+
+My Account → Security → Generate Token
+
+
+---
+
+Step 4: Configure SonarQube Server
+
+Server URL: http://localhost:9000
+
+
+---
+
+Step 5: Add Sonar Build Step
+
+Analysis Properties:
+
+sonar.projectKey=web-mini-project
+sonar.projectName=Web Mini Project
+sonar.projectVersion=1.0
+sonar.sources=.
+sonar.sourceEncoding=UTF-8
+sonar.java.binaries=calculator/target/classes
+
+
+---
+
+Step 6: Build Project
+
+Click Build Now.
+
+
+---
+
+LAB SHEET 12
+
+Jenkins with Docker CI/CD Workflow
+
+
+---
+
+Step 1: Install Docker
+
+Install Docker Desktop.
+
+
+---
+
+Step 2: Check Docker
+
+docker --version
+
+docker ps
+
+
+---
+
+Step 3: Install Jenkins Docker Plugins
+
+Install:
+
+Docker Plugin
+
+Docker Pipeline Plugin
+
+
+
+---
+
+Step 4: Set Docker PATH
+
+Add:
+
+C:\Program Files\Docker\Docker\resources\bin
+
+
+---
+
+Step 5: Restart Jenkins
+
+services.msc
+
+Restart Jenkins.
+
+
+---
+
+Step 6: Create Pipeline Project
+
+Create Pipeline Job.
+
+
+---
+
+Step 7: Docker Check Pipeline
+
+pipeline {
+ agent any
+ stages {
+  stage('Check Docker') {
+   steps {
+    bat 'docker --version'
+   }
+  }
+ }
+}
+
+
+---
+
+Step 8: Run Docker Container
+
+pipeline {
+ agent any
+ stages {
+  stage('Run Docker Container') {
+   steps {
+    bat 'docker run hello-world'
+   }
+  }
+ }
+}
+
+
+---
+
+Step 9: Create Dockerfile
+
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:17
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+
+---
+
+Step 10: Full Jenkins Pipeline Script
+
+pipeline {
+ agent any
+
+ tools {
+  maven "Maven3"
+ }
+
+ environment {
+  IMAGE_NAME = "add-two-number-app"
+ }
+
+ stages {
+
+  stage('Checkout Code') {
+   steps {
+    git branch: 'main',
+    url: 'https://github.com/prachikawalkar5-ui/web-mini-project.git'
+   }
+  }
+
+  stage('Build Maven Project') {
+   steps {
+    dir('calculator') {
+     bat 'mvn clean package -DskipTests'
+    }
+   }
+  }
+
+  stage('Check Docker') {
+   steps {
+    bat 'docker --version'
+   }
+  }
+
+  stage('Build Docker Image') {
+   steps {
+    dir('calculator') {
+     bat 'docker build --no-cache -t add-two-number-app .'
+    }
+   }
+  }
+
+  stage('Run Container') {
+   steps {
+    bat 'docker rm -f addtwo-container || exit 0'
+    bat 'docker run -d --name addtwo-container -p 9090:8080 add-two-number-app'
+   }
+  }
+ }
+
+ post {
+  success {
+   echo 'Pipeline executed successfully!'
+  }
+
+  failure {
+   echo 'Pipeline failed. Check logs!'
+  }
+ }
+}
+
+
+---
+
+Final Output
+
+Application runs at:
+
+http://localhost:9090
